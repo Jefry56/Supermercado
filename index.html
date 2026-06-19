@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulperia Jafet</title>
+    <link rel="stylesheet" href="CSS/estilo.css">
+</head>
+<body>
+
+    <header>
+        <div class="shell header-content">
+            <img src="IMG/Logo.png" alt="Logo de Pulperia Jafet" class="logo-img">
+            <nav class="nav" id="nav">
+                <ul class="nav_menu">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#sucursales">Sucursales</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="#" onclick="abrirLogin(); return false;">Iniciar Sesión</a></li>
+                </ul>
+            </nav>
+            <button class="carrito-btn" id="btnCarrito">🛒 Carrito <span class="carrito-contador" id="contador">0</span></button>
+            <button class="dark-toggle" id="darkToggle" aria-label="Cambiar modo oscuro" title="Modo oscuro">
+                <span class="dark-toggle-icon">🌙</span>
+            </button>
+            <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Panel del carrito -->
+    <div class="carrito-overlay" id="overlay" onclick="cerrarCarrito()"></div>
+    <div class="carrito-panel" id="carritoPanel">
+        <div class="carrito-header">
+            <h2>🛒 Tu Carrito</h2>
+            <button class="carrito-cerrar" onclick="cerrarCarrito()">✕</button>
+        </div>
+        <div class="carrito-items" id="carritoItems">
+            <div class="carrito-vacio" id="carritoVacio">
+                🛒<br>Tu carrito está vacío<br><small>¡Agrega productos para comenzar!</small>
+            </div>
+        </div>
+        <div class="carrito-footer" id="carritoFooter" style="display:none">
+            <div class="carrito-total">
+                <span>Total:</span>
+                <span id="totalCarrito">L. 0.00</span>
+            </div>
+            <button class="btn-checkout" onclick="alert('¡Gracias por tu compra! Pronto te contactaremos. 🎉')">✅ Finalizar Compra</button>
+            <button class="btn-vaciar" onclick="vaciarCarrito()">🗑️ Vaciar carrito</button>
+        </div>
+    </div>
+
+    <!-- Modal Iniciar Sesión -->
+    <div class="modal-overlay" id="modalOverlay" onclick="cerrarLogin()"></div>
+    <div class="modal-login" id="modalLogin">
+        <button class="modal-cerrar" onclick="cerrarLogin()">✕</button>
+        <span class="ceja">Bienvenido</span>
+        <h2>Iniciar Sesión</h2>
+        <p>Accede a tu cuenta para disfrutar de beneficios exclusivos.</p>
+        <form class="login-form" onsubmit="submitLogin(event)">
+            <div class="form-group">
+                <label for="usuario">Usuario</label>
+                <input type="text" id="usuario" name="usuario" placeholder="Ingresa tu usuario" required>
+            </div>
+            <div class="form-group">
+                <label for="contrasena">Contraseña</label>
+                <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" required>
+            </div>
+            <button type="submit" class="btn-comprar" style="width:100%;padding:12px;">Entrar →</button>
+        </form>
+    </div>
+
+    <!-- Hero + Ofertas integradas -->
+    <div class="hero" id="inicio">
+        <div class="hero_conten">
+            <h1>Bienvenido a Pulperia Jafet</h1>
+            <p>Los mejores productos al mejor precio, pensando en ti y tu familia.</p>
+            <a href="#productos" class="hero-btn">Ver Productos 🛒</a>
+        </div>
+        <div class="hero-ofertas">
+            <div class="hero-oferta roja">🔥 <strong>2x1</strong> en Leche — Solo hoy</div>
+            <div class="hero-oferta azul">⚡ <strong>20% OFF</strong> en Arroz — Esta semana</div>
+            <div class="hero-oferta verde">🎁 Pack <strong>Frijoles + Aceite</strong> a precio especial</div>
+        </div>
+    </div>
+
+    <!-- Nosotros (simplificado) -->
+    <section class="nosotros-simple reveal" id="nosotros">
+        <div class="shell nosotros-inner">
+            <div class="nosotros-texto">
+                <span class="ceja">Nosotros</span>
+                <h2 class="titulo" style="text-align:left;">Sobre Nuestra Empresa</h2>
+                <p>En Pulperia Jafet nos dedicamos a ofrecer productos de alta calidad al mejor precio. Nuestra misión es brindarte una experiencia de compra excepcional, con un enfoque en tu satisfacción y el bienestar de tu familia.</p>
+            </div>
+            <img src="IMG/Presentacion.png" alt="Presentación Pulperia Jafet" class="nosotros-img">
+        </div>
+    </section>
+
+    <!-- Productos -->
+    <section class="productos" id="productos">
+        <div class="shell">
+            <div class="intro reveal">
+                <span class="ceja">Productos</span>
+                <h2 class="titulo">Nuestros Productos</h2>
+                <p class="descripcion">Descubre nuestra amplia selección de productos de calidad para ti y tu familia.</p>
+            </div>
+            <div class="productos-grid">
+                <div class="producto-card reveal">
+                    <img src="IMG/Leche.jpg" alt="Leche">
+                    <h3>Leche Entera</h3>
+                    <p class="descripcion">Leche fresca de vaca</p>
+                    <p class="precio">L. 25.00</p>
+                    <button class="btn-comprar" onclick="agregarAlCarrito('Leche Entera', 25)">Agregar 🛒</button>
+                </div>
+                <div class="producto-card reveal">
+                    <img src="IMG/Pan.jpg" alt="Pan">
+                    <h3>Pan Integral</h3>
+                    <p class="descripcion">Pan rico en fibra</p>
+                    <p class="precio">L. 15.00</p>
+                    <button class="btn-comprar" onclick="agregarAlCarrito('Pan Integral', 15)">Agregar 🛒</button>
+                </div>
+                <div class="producto-card reveal">
+                    <img src="IMG/Huevo.jpg" alt="Huevos">
+                    <h3>Huevos</h3>
+                    <p class="descripcion">Huevos frescos</p>
+                    <p class="precio">L. 45.00</p>
+                    <button class="btn-comprar" onclick="agregarAlCarrito('Huevos', 45)">Agregar 🛒</button>
+                </div>
+                <div class="producto-card reveal">
+                    <img src="IMG/Arroz.jpg" alt="Arroz">
+                    <h3>Arroz</h3>
+                    <p class="descripcion">Arroz premium</p>
+                    <p class="precio">L. 30.00</p>
+                    <button class="btn-comprar" onclick="agregarAlCarrito('Arroz', 30)">Agregar 🛒</button>
+                </div>
+                <div class="producto-card reveal">
+                    <img src="IMG/Aceite.jpg" alt="Aceite">
+                    <h3>Aceite</h3>
+                    <p class="descripcion">Aceite vegetal</p>
+                    <p class="precio">L. 35.00</p>
+                    <button class="btn-comprar" onclick="agregarAlCarrito('Aceite', 35)">Agregar 🛒</button>
+                </div>
+                <div class="producto-card reveal">
+                    <img src="IMG/Frijoles.jpg" alt="Frijoles">
+                    <h3>Frijoles</h3>
+                    <p class="descripcion">Frijoles rojos</p>
+                    <p class="precio">L. 20.00</p>
+                    <button class="btn-comprar" onclick="agregarAlCarrito('Frijoles', 20)">Agregar 🛒</button>
+                </div>
+
+                 <div class="producto-card reveal">
+                    <img src="IMG/Carnes.jpg" alt="Carnes">
+                    <h3>Carnes</h3>
+                    <p class="descripcion">Carnes de calidad</p>
+                    <p class="precio">L. 100.00</p>
+                    <button class="btn-comprar" onclick="agregarAlCarrito('Carnes', 100)">Agregar 🛒</button>
+                </div>
+
+                 <div class="producto-card reveal">
+                    <img src="IMG/Pescado.jpg" alt="Pescado">
+                    <h3>Pescado</h3>
+                    <p class="descripcion">Pescado fresco</p>
+                    <p class="precio">L. 50.00</p>
+                    <button class="btn-comprar" onclick="agregarAlCarrito('Pescado', 50)">Agregar 🛒</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios (solo 2) -->
+    <section class="testimonios" id="testimonios">
+        <div class="shell">
+            <div class="intro reveal">
+                <span class="ceja">Testimonios</span>
+                <h2 class="titulo">Lo Que Dicen Nuestros Clientes</h2>
+                <p class="descripcion">La satisfacción de nuestros clientes es nuestra mayor recompensa.</p>
+            </div>
+            <div class="testimonios-grid">
+                <div class="testimonio-card reveal">
+                    <div class="estrellas">★★★★★</div>
+                    <p>"Excelente servicio, siempre tienen todo lo que necesito y a muy buen precio. ¡Los recomiendo 100%!"</p>
+                    <div class="testimonio-autor">
+                        <div class="autor-avatar">MG</div>
+                        <div>
+                            <strong>María González</strong>
+                            <span>Clienta frecuente</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonio-card reveal">
+                    <div class="estrellas">★★★★★</div>
+                    <p>"La entrega a domicilio es rapidísima y los productos siempre llegan frescos. ¡Es mi tienda favorita!"</p>
+                    <div class="testimonio-autor">
+                        <div class="autor-avatar">CR</div>
+                        <div>
+                            <strong>Carlos Reyes</strong>
+                            <span>Cliente desde 2020</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonio-card reveal">
+                    <div class="estrellas">★★★★★</div>
+                    <p>"Muy buena variedad de productos y precios competitivos siempre encontraras los mejores productos."</p>
+                    <div class="testimonio-autor">
+                        <div class="autor-avatar">LP</div>
+                        <div>
+                            <strong>Laura Pérez</strong>
+                            <span>Compradora ocasional</span>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </section>
+
+    <!-- Sucursales -->
+    <section class="sucursales" id="sucursales">
+        <div class="shell">
+            <div class="intro reveal">
+                <span class="ceja">Sucursales</span>
+                <h2 class="titulo">Encuentra Nuestra Sucursal Más Cercana</h2>
+                <p class="descripcion">Estamos en varios puntos de la ciudad para servirte mejor.</p>
+            </div>
+            <div class="sucursales-grid">
+                <div class="sucursal-card reveal">
+                    <div class="sucursal-icono">🏪</div>
+                    <h3>Sucursal Central</h3>
+                    <p><strong>📍</strong> Bulevar Morazán #101, Tegucigalpa</p>
+                    <p><strong>📞</strong> (504) 2235-1000</p>
+                    <p><strong>🕐</strong> Lun–Sáb 7:00 AM – 10:00 PM</p>
+                    <p><strong>🕐</strong> Dom 8:00 AM – 8:00 PM</p>
+                    <span class="sucursal-badge abierto">Abierto Ahora</span>
+                </div>
+                <div class="sucursal-card reveal">
+                    <div class="sucursal-icono">🏪</div>
+                    <h3>Sucursal Norte</h3>
+                    <p><strong>📍</strong> Colonia Moderna</p>
+                    <p><strong>📞</strong> (504) 2236-2000</p>
+                    <p><strong>🕐</strong> Lun–Sáb 8:00 AM – 9:00 PM</p>
+                    <p><strong>🕐</strong> Dom 9:00 AM – 7:00 PM</p>
+                    <span class="sucursal-badge abierto">Abierto Ahora</span>
+                </div>
+                <div class="sucursal-card reveal">
+                    <div class="sucursal-icono">🏪</div>
+                    <h3>Sucursal Sur</h3>
+                    <p><strong>📍</strong> Col. La Satélite</p>
+                    <p><strong>📞</strong> (504) 2237-3000</p>
+                    <p><strong>🕐</strong> Lun–Sáb 7:30 AM – 9:30 PM</p>
+                    <p><strong>🕐</strong> Dom 8:00 AM – 6:00 PM</p>
+                    <span class="sucursal-badge abierto">Abierto Ahora</span>
+                </div>
+                <div class="sucursal-card reveal">
+                    <div class="sucursal-icono">🏪</div>
+                    <h3>Sucursal Este</h3>
+                    <p><strong>📍</strong> Col. Miraflores, Calle Principal #88</p>
+                    <p><strong>📞</strong> (504) 2238-4000</p>
+                    <p><strong>🕐</strong> Lun–Sáb 8:00 AM – 10:00 PM</p>
+                    <p><strong>🕐</strong> Dom 9:00 AM – 8:00 PM</p>
+                    <span class="sucursal-badge abierto">Abierto Ahora</span>
+                </div>
+            </div>
+            <div class="mapa-container reveal">
+                <h3>📍 Encuéntrano mayormente en San Pedro Sula</h3>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d657.994352624562!2d-87.99320678090889!3d15.560870190204122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses-419!2shn!4v1779371121965!5m2!1ses-419!2shn"
+                    width="1000" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade  ">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios (solo 3) -->
+    <section class="servicios" id="servicios">
+        <div class="shell">
+            <div class="intro reveal">
+                <span class="ceja">Servicios</span>
+                <h2 class="titulo">¿Cómo Podemos Ayudarte?</h2>
+                <p class="descripcion">Servicios pensados para hacer tu compra más fácil y conveniente.</p>
+            </div>
+            <div class="servicios-grid servicios-3">
+                <div class="servicio-card reveal">
+                    <div class="servicio-icono">🚚</div>
+                    <h3>Entrega a Domicilio</h3>
+                    <p>Recibe tus productos en la puerta de tu casa. Entregas rápidas dentro de la ciudad con seguimiento en tiempo real.</p>
+                </div>
+                <div class="servicio-card reveal">
+                    <div class="servicio-icono">🎁</div>
+                    <h3>Programa de Puntos</h3>
+                    <p>Acumula puntos con cada compra y canjéalos por descuentos, productos gratis o beneficios exclusivos.</p>
+                </div>
+                <div class="servicio-card reveal">
+                    <div class="servicio-icono">🤝</div>
+                    <h3>Atención al Cliente</h3>
+                    <p>Nuestro equipo está disponible para resolver dudas y garantizar tu total satisfacción en cada compra.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contacto" id="contacto">
+        <div class="shell">
+            <div class="intro reveal">
+                <span class="ceja">Contacto</span>
+                <h2 class="titulo">Estamos Aquí Para Ayudarte</h2>
+                <p class="descripcion">¿Tienes alguna pregunta? Contáctanos por cualquiera de estos medios.</p>
+            </div>
+            <div class="contacto-grid">
+                <div class="contacto-card reveal">
+                    <h3>📍 Dirección</h3>
+                    <p>Avenida Principal #123</p>
+                    <p><strong>Frente al Estadio Nacional</strong></p>
+                </div>
+                <div class="contacto-card reveal">
+                    <h3>🕐 Horarios</h3>
+                    <p><strong>Lun a Sáb:</strong> 7:00 AM – 10:00 PM</p>
+                    <p><strong>Domingos:</strong> 8:00 AM – 8:00 PM</p>
+                </div>
+                <div class="contacto-card reveal">
+                    <h3>📞 Contáctanos</h3>
+                    <p><strong>Tel:</strong> (504) 2235-1000</p>
+                    <p><strong>WhatsApp:</strong> <a href="https://wa.me/50422351000" style="color:var(--azul)">(504) 2235-1000</a></p>
+                    <p><strong>Email:</strong> info@megaahorro.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp flotante -->
+    <a href="https://wa.me/50498558000" class="whatsapp-float" target="_blank" title="Chatea con nosotros por WhatsApp">
+        <span class="whatsapp-icon">💬</span>
+        <span class="whatsapp-texto">¿Necesitas ayuda?</span>
+    </a>
+
+    <footer>
+        <div class="shell footer-content">
+            <div class="footer-info">
+                <p><strong>Pulperia Jafet</strong> — Tu tienda de confianza en Honduras</p>
+                <p>📞 (504) 2235-1000 &nbsp;|&nbsp; 📧 info@pulperijafet.com</p>
+            </div>
+            <p class="footer-copy">&copy; 2025 Pulperia Jafet. Todos los derechos reservados a Jefferson.</p>
+        </div>
+    </footer>
+
+    <script src="JAVA/script.js"></script>
+</body>
+</html>
